@@ -53,7 +53,7 @@ The project uses Swift 6.2 with aggressive concurrency enforcement:
 Claude Code CLI
   → Python hook script (~/.claude/hooks/claude-island-state.py)
     → Unix socket (/tmp/claude-island.sock)
-      → HookSocketServer (actor, parses JSON events)
+      → HookSocketServer (GCD+Mutex, parses JSON events)
         → SessionStore.process(event:) (actor, single mutation entry point)
           → AsyncStream broadcast to subscribers
             → ClaudeSessionMonitor (@Observable, MainActor UI bridge)
@@ -83,7 +83,7 @@ Permission approvals flow back: SwiftUI → ToolApprovalHandler → TmuxControll
 
 | Domain | Key Type | Purpose |
 |---|---|---|
-| Hooks | `HookSocketServer` (actor, 919 lines) | Unix socket server, bidirectional hook events, permission req/resp |
+| Hooks | `HookSocketServer` (final class, GCD+Mutex, 919 lines) | Unix socket server, bidirectional hook events, permission req/resp |
 | Session | `ConversationParser` (actor) | Parses JSONL chat files with incremental sync |
 | Session | `ClaudeSessionMonitor` (@Observable) | MainActor bridge from SessionStore to SwiftUI |
 | Session | `AgentFileWatcher` | Monitors subagent directory for Task tool state |
