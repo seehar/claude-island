@@ -381,13 +381,13 @@ def determine_status(
             return "processing", {}
 
         case "PreToolUse":
-            extras: ToolExtras = {}
-            if tool := data.get("tool_name"):
-                extras["tool"] = tool
-            extras["tool_input"] = _normalize_tool_input(data.get("tool_input"))
-            if tool_use_id := data.get("tool_use_id"):
-                extras["tool_use_id"] = tool_use_id
-            return "running_tool", extras
+            # No longer registered on PreToolUse (removed to prevent rtk interference,
+            # see Claude Code bug #15897). If called from a stale hook registration,
+            # skip harmlessly.
+            # TODO(anthropics/claude-code#15897): Re-add PreToolUse handling once
+            # upstream fixes parallel hook updatedInput aggregation. Previously
+            # returned "running_tool" with tool_name/tool_input/tool_use_id extras.
+            return "skip", {}
 
         case "PostToolUse":
             extras_post: ToolExtras = {}
@@ -404,6 +404,8 @@ def determine_status(
             }
             if tool := data.get("tool_name"):
                 extras_perm["tool"] = tool
+            if tool_use_id := data.get("tool_use_id"):
+                extras_perm["tool_use_id"] = tool_use_id
             return "waiting_for_approval", extras_perm
 
         case "Notification":
@@ -507,31 +509,25 @@ def main() -> None:
     event = data.get("hook_event_name", "")
     cwd = data.get("cwd", "")
 
-    # Get process info
-    claude_pid = get_claude_pid()
-    tty = get_tty(claude_pid)
-
-    # Validate session state
-    tty_valid = validate_tty(tty)
-    session_active = is_session_active(claude_pid, tty)
-
-    # Determine status and extra fields
+    # Determine status early (pure computation, no I/O)
     status, extras = determine_status(event, data)
 
-    # Skip certain events
+    # Skip certain events (e.g. stale PreToolUse registration)
     if status == "skip":
         print("{}")
         sys.exit(0)
 
-    # Build state object
+    # Resolve PID, TTY, build state
+    claude_pid = get_claude_pid()
+    tty = get_tty(claude_pid)
     state = SessionState(
         session_id=session_id,
         cwd=cwd,
         event=event,
         pid=claude_pid,
         tty=tty,
-        tty_valid=tty_valid,
-        session_active=session_active,
+        tty_valid=validate_tty(tty),
+        session_active=is_session_active(claude_pid, tty),
         status=status,
         tool=extras.get("tool"),
         tool_input=_normalize_tool_input(extras.get("tool_input")),
@@ -540,19 +536,14 @@ def main() -> None:
         message=extras.get("message"),
     )
 
-    # Handle permission requests specially
+    # Send to ClaudeIsland.app
+    response = send_event(state)
+
+    # Permission requests return the decision; all others print empty JSON
     if status == "waiting_for_approval":
-        response = send_event(state)
         handle_permission_response(response)
-        sys.exit(0)
-
-    # Send to socket (fire and forget for non-permission events)
-    _ = send_event(state)
-
-    # Output empty JSON to signal "no modifications" to Claude Code.
-    # Prevents interference with other hooks' outputs (e.g., RTK's updatedInput)
-    # when multiple hooks run in parallel on the same event.
-    print("{}")
+    else:
+        print("{}")
 
 
 if __name__ == "__main__":
