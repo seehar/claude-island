@@ -20,13 +20,13 @@ enum PythonRuntimeAlert {
         self.logger.warning("Showing Python runtime unavailable alert: \(String(describing: reason))")
 
         let alert = NSAlert()
-        alert.messageText = "Python Runtime Required"
+        alert.messageText = "python_runtime_required".localized
         alert.informativeText = self.message(for: reason)
         alert.alertStyle = .warning
 
-        alert.addButton(withTitle: "Install uv")
-        alert.addButton(withTitle: "Install Python 3.14")
-        alert.addButton(withTitle: "Dismiss")
+        alert.addButton(withTitle: "install_uv".localized)
+        alert.addButton(withTitle: "install_python_314".localized)
+        alert.addButton(withTitle: "dismiss".localized)
 
         let response = alert.runModal()
 

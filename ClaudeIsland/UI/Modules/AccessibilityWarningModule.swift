@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AccessibilityWarningModule: NotchModule {
     nonisolated let id = "accessibilityWarning"
-    let displayName = "Accessibility"
+    let displayName = "accessibility".localized
     let defaultSide: ModuleSide = .left
     let defaultOrder = 2
 

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ClawdModule: NotchModule {
     nonisolated let id = "clawd"
-    let displayName = "Clawd"
+    let displayName = "clawd".localized
     let defaultSide: ModuleSide = .left
     let defaultOrder = 0
 

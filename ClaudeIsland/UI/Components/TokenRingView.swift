@@ -15,21 +15,39 @@ struct TokenRingView: View {
     let size: CGFloat
     let strokeWidth: CGFloat
 
+    // Animation for percentage and color changes
+    @State private var animatedPercentage: Double = 0
+    @State private var animatedColor: Color = .green
+
     var body: some View {
         ZStack {
             Circle()
-                .stroke(self.ringColor.opacity(0.2), lineWidth: self.strokeWidth)
+                .stroke(self.animatedColor.opacity(0.2), lineWidth: self.strokeWidth)
 
             Circle()
-                .trim(from: 0, to: min(self.percentage / 100, 1.0))
-                .stroke(self.ringColor, style: StrokeStyle(lineWidth: self.strokeWidth, lineCap: .round))
+                .trim(from: 0, to: min(self.animatedPercentage / 100, 1.0))
+                .stroke(self.animatedColor, style: StrokeStyle(lineWidth: self.strokeWidth, lineCap: .round))
                 .rotationEffect(.degrees(-90))
 
             Text(self.label)
                 .font(.system(size: self.size * 0.35, weight: .bold, design: .rounded))
-                .foregroundColor(self.ringColor)
+                .foregroundColor(self.animatedColor)
         }
         .frame(width: self.size, height: self.size)
+        .onAppear {
+            self.animatedPercentage = self.percentage
+            self.animatedColor = self.ringColor
+        }
+        .onChange(of: self.percentage) { oldValue, newValue in
+            withAnimation(.easeOut(duration: 0.5)) {
+                self.animatedPercentage = newValue
+            }
+        }
+        .onChange(of: self.ringColor) { oldValue, newValue in
+            withAnimation(.easeInOut(duration: 0.3)) {
+                self.animatedColor = newValue
+            }
+        }
     }
 
     // MARK: Private

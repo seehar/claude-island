@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ReadyCheckmarkModule: NotchModule {
     nonisolated let id = "readyCheckmark"
-    let displayName = "Checkmark"
+    let displayName = "checkmark".localized
     let defaultSide: ModuleSide = .right
     let defaultOrder = 1
 

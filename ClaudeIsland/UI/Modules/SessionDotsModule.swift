@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SessionDotsModule: NotchModule {
     nonisolated let id = "sessionDots"
-    let displayName = "Session Dots"
+    let displayName = "session_dots".localized
     let defaultSide: ModuleSide = .right
     let defaultOrder = 3
 

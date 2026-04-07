@@ -72,7 +72,7 @@ struct ModuleLayoutSettingsView: View {
                 HStack(spacing: 6) {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 10, weight: .medium))
-                    Text("Layout")
+                    Text("layout".localized)
                         .font(.system(size: 13, weight: .semibold))
                 }
                 .foregroundColor(.white.opacity(0.7))
@@ -85,7 +85,7 @@ struct ModuleLayoutSettingsView: View {
                 self.layoutEngine.resetToDefaults()
                 self.loadFromConfig()
             } label: {
-                Text("Reset")
+                Text("reset".localized)
                     .font(.system(size: 11))
                     .foregroundColor(.white.opacity(0.5))
             }
@@ -196,7 +196,7 @@ private struct ModuleColumnView: View {
                     .frame(maxWidth: .infinity, minHeight: self.modules.isEmpty ? 32 : 16)
                     .overlay {
                         if self.modules.isEmpty {
-                            Text("None")
+                            Text("none".localized)
                                 .font(.system(size: 12))
                                 .foregroundColor(.white.opacity(0.2))
                         }

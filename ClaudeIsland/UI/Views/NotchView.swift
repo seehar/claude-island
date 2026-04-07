@@ -112,6 +112,7 @@ struct NotchView: View {
     @State private var isVisible = false
     @State private var isHovering = false
     @State private var isBouncing = false
+    @State private var menuButtonHovered = false
     @State private var hideVisibilityTask: Task<Void, Never>?
     @State private var bounceTask: Task<Void, Never>?
     @State private var checkmarkHideTask: Task<Void, Never>?
@@ -135,8 +136,16 @@ struct NotchView: View {
     private let openAnimation = Animation.spring(response: 0.42, dampingFraction: 0.8, blendDuration: 0)
     private let closeAnimation = Animation.spring(response: 0.45, dampingFraction: 1.0, blendDuration: 0)
 
+    // Content transition animation
+    private let contentInsertAnimation = Animation.spring(response: 0.3, dampingFraction: 0.8)
+    private let contentRemoveAnimation = Animation.easeOut(duration: 0.2)
+
+    // Micro-interaction animations
+    private let hoverScaleAnimation = Animation.spring(response: 0.2, dampingFraction: 0.6)
+    private let buttonPressAnimation = Animation.easeInOut(duration: 0.1)
+
     /// Prefix indicating context was resumed (not a true "done" state)
-    private let contextResumePrefix = "This session is being continued from a previous conversation"
+    private let contextResumePrefix = "session_continued".localized
 
     /// Whether any Claude session is currently processing or compacting
     private var isAnyProcessing: Bool {
@@ -268,10 +277,12 @@ struct NotchView: View {
                     .frame(width: self.notchSize.width - 24) // Fixed width to prevent reflow
                     .transition(
                         .asymmetric(
-                            insertion: .scale(scale: 0.8, anchor: .top)
+                            insertion: .scale(scale: 0.9, anchor: .top)
                                 .combined(with: .opacity)
-                                .animation(.smooth(duration: 0.35)),
-                            removal: .opacity.animation(.easeOut(duration: 0.15)),
+                                .animation(self.contentInsertAnimation),
+                            removal: .scale(scale: 0.95, anchor: .top)
+                                .combined(with: .opacity)
+                                .animation(self.contentRemoveAnimation),
                         ),
                     )
             }
@@ -308,7 +319,7 @@ struct NotchView: View {
             .animation(.smooth, value: self.hasPendingPermission)
             .animation(.smooth, value: self.hasWaitingForInput)
             .animation(.smooth, value: self.accessibilityManager.shouldShowPermissionWarning)
-            .animation(.spring(response: 0.3, dampingFraction: 0.5), value: self.isBouncing)
+            .animation(.spring(response: 0.4, dampingFraction: 0.6), value: self.isBouncing)
             .animation(.smooth, value: self.clawdAlwaysVisible)
             .contentShape(Rectangle())
             .onHover { hovering in
@@ -428,6 +439,10 @@ struct NotchView: View {
                     .font(.system(size: 11, weight: .medium))
                     .foregroundColor(.white.opacity(0.4))
                     .frame(width: 22, height: 22)
+                    .rotationEffect(.degrees(self.viewModel.contentType == .menu ? 90 : 0))
+                    .animation(.spring(response: 0.3, dampingFraction: 0.7), value: self.viewModel.contentType)
+                    .scaleEffect(self.menuButtonHovered ? 1.1 : 1.0)
+                    .animation(self.hoverScaleAnimation, value: self.menuButtonHovered)
                     .contentShape(Rectangle())
 
                 if self.updateManager.hasUnseenUpdate && self.viewModel.contentType != .menu {
@@ -439,6 +454,9 @@ struct NotchView: View {
             }
         }
         .buttonStyle(.plain)
+        .onHover { hovering in
+            self.menuButtonHovered = hovering
+        }
     }
 
     // MARK: - Content View (Opened State)

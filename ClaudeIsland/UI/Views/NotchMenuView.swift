@@ -59,7 +59,7 @@ struct NotchMenuView: View {
 
                         MenuToggleRow(
                             icon: "arrow.up.left.and.arrow.down.right",
-                            label: "Notch Auto-Expand",
+                            label: "notch_auto_expand".localized,
                             isOn: self.notchAutoExpand,
                         ) {
                             self.notchAutoExpand.toggle()
@@ -67,7 +67,7 @@ struct NotchMenuView: View {
 
                         MenuRow(
                             icon: "rectangle.split.3x1",
-                            label: "Notch Layout",
+                            label: "notch_layout".localized,
                         ) {
                             self.showLayoutSettings = true
                         }
@@ -171,7 +171,7 @@ struct NotchMenuView: View {
 
                         MenuRow(
                             icon: "xmark.circle",
-                            label: "Quit",
+                            label: "quit".localized,
                             isDestructive: true,
                         ) {
                             NSApplication.shared.terminate(nil)
@@ -340,23 +340,23 @@ struct UpdateRow: View {
     private var label: String {
         switch self.updateManager.state {
         case .idle:
-            "Check for Updates"
+            "check_for_updates".localized
         case .checking:
-            "Checking..."
+            "checking".localized
         case .upToDate:
-            "Check for Updates"
+            "check_for_updates".localized
         case .found:
-            "Download Update"
+            "download_update".localized
         case .downloading:
-            "Downloading..."
+            "downloading".localized
         case .extracting:
-            "Extracting..."
+            "extracting".localized
         case .readyToInstall:
-            "Install & Relaunch"
+            "install_relaunch".localized
         case .installing:
-            "Installing..."
+            "installing".localized
         case .error:
-            "Update failed"
+            "update_failed".localized
         }
     }
 
@@ -408,7 +408,7 @@ struct UpdateRow: View {
                 Image(systemName: "checkmark")
                     .font(.system(size: 9, weight: .bold))
                     .foregroundColor(TerminalColors.green)
-                Text("Up to date")
+                Text("up_to_date".localized)
                     .font(.system(size: 11))
                     .foregroundColor(TerminalColors.green)
             }
@@ -424,7 +424,7 @@ struct UpdateRow: View {
                 Circle()
                     .fill(TerminalColors.green)
                     .frame(width: 6, height: 6)
-                Text("v\(version)")
+                Text(String(format: NSLocalizedString("version_format", value: "v%@", comment: ""), version))
                     .font(.system(size: 11))
                     .foregroundColor(TerminalColors.green)
             }
@@ -434,7 +434,7 @@ struct UpdateRow: View {
                 ProgressView(value: progress)
                     .frame(width: 60)
                     .tint(TerminalColors.blue)
-                Text("\(Int(progress * 100))%")
+                Text(String(format: NSLocalizedString("progress_format", value: "%d%%", comment: ""), Int(progress * 100)))
                     .font(.system(size: 11, weight: .medium))
                     .foregroundColor(TerminalColors.blue)
                     .frame(width: 32, alignment: .trailing)
@@ -445,7 +445,7 @@ struct UpdateRow: View {
                 ProgressView(value: progress)
                     .frame(width: 60)
                     .tint(TerminalColors.amber)
-                Text("\(Int(progress * 100))%")
+                Text(String(format: NSLocalizedString("progress_format", value: "%d%%", comment: ""), Int(progress * 100)))
                     .font(.system(size: 11, weight: .medium))
                     .foregroundColor(TerminalColors.amber)
                     .frame(width: 32, alignment: .trailing)
@@ -456,13 +456,13 @@ struct UpdateRow: View {
                 Circle()
                     .fill(TerminalColors.green)
                     .frame(width: 6, height: 6)
-                Text("v\(version)")
+                Text(String(format: NSLocalizedString("version_format", value: "v%@", comment: ""), version))
                     .font(.system(size: 11))
                     .foregroundColor(TerminalColors.green)
             }
 
         case .error:
-            Text("Retry")
+            Text("retry".localized)
                 .font(.system(size: 11))
                 .foregroundColor(.white.opacity(0.5))
         }
@@ -499,7 +499,7 @@ struct AccessibilityRow: View {
                 .foregroundColor(self.textColor)
                 .frame(width: 16)
 
-            Text("Accessibility")
+            Text("accessibility".localized)
                 .font(.system(size: 13, weight: .medium))
                 .foregroundColor(self.textColor)
 
@@ -510,12 +510,12 @@ struct AccessibilityRow: View {
                     .fill(TerminalColors.green)
                     .frame(width: 6, height: 6)
 
-                Text("On")
+                Text("on".localized)
                     .font(.system(size: 11))
                     .foregroundColor(.white.opacity(0.4))
             } else {
                 Button(action: self.handleEnableAction) {
-                    Text("Enable")
+                    Text("enable".localized)
                         .font(.system(size: 11, weight: .semibold))
                         .foregroundColor(.black)
                         .padding(.horizontal, 10)
@@ -583,8 +583,10 @@ struct MenuRow: View {
                 RoundedRectangle(cornerRadius: 8)
                     .fill(self.isHovered ? Color.white.opacity(0.08) : Color.clear),
             )
+            .scaleEffect(self.isHovered ? 1.02 : 1.0)
         }
         .buttonStyle(.plain)
+        .animation(.easeOut(duration: 0.15), value: self.isHovered)
         .onHover { self.isHovered = $0 }
     }
 
@@ -628,7 +630,7 @@ struct MenuToggleRow: View {
                     .fill(self.isOn ? TerminalColors.green : Color.white.opacity(0.3))
                     .frame(width: 6, height: 6)
 
-                Text(self.isOn ? "On" : "Off")
+                Text(self.isOn ? "on".localized : "off".localized)
                     .font(.system(size: 11))
                     .foregroundColor(.white.opacity(0.4))
             }
@@ -638,8 +640,10 @@ struct MenuToggleRow: View {
                 RoundedRectangle(cornerRadius: 8)
                     .fill(self.isHovered ? Color.white.opacity(0.08) : Color.clear),
             )
+            .scaleEffect(self.isHovered ? 1.02 : 1.0)
         }
         .buttonStyle(.plain)
+        .animation(.easeOut(duration: 0.15), value: self.isHovered)
         .onHover { self.isHovered = $0 }
     }
 
@@ -672,7 +676,7 @@ struct TokenTrackingRow: View {
                         .foregroundColor(self.textColor)
                         .frame(width: 16)
 
-                    Text("Token Tracking")
+                    Text("token_tracking".localized)
                         .font(.system(size: 13, weight: .medium))
                         .foregroundColor(self.textColor)
 
@@ -742,7 +746,7 @@ struct TokenTrackingRow: View {
     }
 
     private var modeSelector: some View {
-        Picker("Mode", selection: self.$tokenMode) {
+        Picker("mode".localized, selection: self.$tokenMode) {
             ForEach(TokenTrackingMode.allCases, id: \.self) { mode in
                 Text(mode.rawValue).tag(mode)
             }
@@ -760,7 +764,7 @@ struct TokenTrackingRow: View {
     private var apiSettings: some View {
         VStack(alignment: .leading, spacing: 8) {
             Toggle(isOn: self.$useCLIOAuth) {
-                Text("Use CLI OAuth")
+                Text("use_cli_oauth".localized)
                     .font(.system(size: 12))
                     .foregroundColor(.white.opacity(0.7))
             }
@@ -775,7 +779,7 @@ struct TokenTrackingRow: View {
 
             if !self.useCLIOAuth {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Session Key")
+                    Text("session_key".localized)
                         .font(.system(size: 11, weight: .medium))
                         .foregroundColor(.white.opacity(0.5))
 
@@ -796,7 +800,7 @@ struct TokenTrackingRow: View {
     private var displaySettings: some View {
         VStack(alignment: .leading, spacing: 12) {
             VStack(alignment: .leading, spacing: 8) {
-                Toggle("Show when minimized", isOn: self.$showRingsMinimized)
+                Toggle("show_when_minimized".localized, isOn: self.$showRingsMinimized)
                     .font(.system(size: 12))
                     .toggleStyle(.switch)
                     .controlSize(.mini)
@@ -805,7 +809,7 @@ struct TokenTrackingRow: View {
                     }
 
                 if self.showRingsMinimized {
-                    Picker("Display", selection: self.$ringDisplay) {
+                    Picker("display".localized, selection: self.$ringDisplay) {
                         ForEach(RingDisplay.allCases, id: \.self) { display in
                             Text(display.rawValue).tag(display)
                         }
@@ -820,7 +824,7 @@ struct TokenTrackingRow: View {
             }
 
             VStack(alignment: .leading, spacing: 4) {
-                Toggle("Show reset time", isOn: self.$showResetTime)
+                Toggle("show_reset_time".localized, isOn: self.$showResetTime)
                     .font(.system(size: 12))
                     .toggleStyle(.switch)
                     .controlSize(.mini)
@@ -829,7 +833,7 @@ struct TokenTrackingRow: View {
                     }
 
                 if self.showResetTime, let resetTime = self.tokenTrackingManager.sessionResetTime {
-                    Text("Resets \(resetTime.formatted(date: .omitted, time: .shortened))")
+                    Text(String(localized: "resets_at", defaultValue: "Resets \(resetTime.formatted(date: .omitted, time: .shortened))"))
                         .font(.system(size: 10))
                         .foregroundColor(TerminalColors.green)
                         .padding(.leading, 20)

@@ -53,11 +53,11 @@ struct ClaudeInstancesView: View {
 
     private var emptyState: some View {
         VStack(spacing: 8) {
-            Text("No sessions")
+            Text("no_sessions".localized)
                 .font(.system(size: 13, weight: .medium))
                 .foregroundColor(.white.opacity(0.4))
 
-            Text("Run claude in terminal")
+            Text("run_claude_in_terminal".localized)
                 .font(.system(size: 11))
                 .foregroundColor(.white.opacity(0.25))
         }
@@ -219,7 +219,7 @@ struct InstanceRow: View {
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(spacing: 6) {
                         if self.isEditing {
-                            TextField("Session name", text: self.$editingName)
+                            TextField("session_name".localized, text: self.$editingName)
                                 .textFieldStyle(.plain)
                                 .font(.system(size: 13, weight: .medium))
                                 .foregroundColor(.white)
@@ -252,7 +252,7 @@ struct InstanceRow: View {
                                 .font(.system(size: 11, weight: .medium, design: .monospaced))
                                 .foregroundColor(TerminalColors.amber.opacity(0.9))
                             if self.isInteractiveTool {
-                                Text("Needs your input")
+                                Text("needs_your_input".localized)
                                     .font(.system(size: 11))
                                     .foregroundColor(.white.opacity(0.5))
                                     .lineLimit(1)
@@ -281,7 +281,7 @@ struct InstanceRow: View {
                             }
                         case "user":
                             HStack(spacing: 4) {
-                                Text("You:")
+                                Text("you".localized)
                                     .font(.system(size: 11, weight: .medium))
                                     .foregroundColor(.white.opacity(0.5))
                                 if let msg = self.session.lastMessage {
@@ -413,32 +413,44 @@ struct InlineApprovalButtons: View {
             Button {
                 self.onReject()
             } label: {
-                Text("Deny")
+                Text("deny".localized)
                     .font(.system(size: 11, weight: .medium))
                     .foregroundColor(.white.opacity(0.6))
                     .padding(.horizontal, 10)
                     .padding(.vertical, 5)
                     .background(Color.white.opacity(0.1))
                     .clipShape(Capsule())
+                    .scaleEffect(self.denyButtonPressed ? 0.95 : 1.0)
             }
             .buttonStyle(.plain)
             .opacity(self.showDenyButton ? 1 : 0)
             .scaleEffect(self.showDenyButton ? 1 : 0.8)
+            .onLongPressGesture(minimumDuration: 0.1, pressing: { pressing in
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    self.denyButtonPressed = pressing
+                }
+            }, perform: {})
 
             Button {
                 self.onApprove()
             } label: {
-                Text("Allow")
+                Text("allow".localized)
                     .font(.system(size: 11, weight: .medium))
                     .foregroundColor(.black)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 5)
                     .background(Color.white.opacity(0.9))
                     .clipShape(Capsule())
+                    .scaleEffect(self.allowButtonPressed ? 0.95 : 1.0)
             }
             .buttonStyle(.plain)
             .opacity(self.showAllowButton ? 1 : 0)
             .scaleEffect(self.showAllowButton ? 1 : 0.8)
+            .onLongPressGesture(minimumDuration: 0.1, pressing: { pressing in
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    self.allowButtonPressed = pressing
+                }
+            }, perform: {})
         }
         .onAppear {
             withAnimation(.spring(response: 0.3, dampingFraction: 0.7).delay(0.0)) {
@@ -458,6 +470,8 @@ struct InlineApprovalButtons: View {
     @State private var showChatButton = false
     @State private var showDenyButton = false
     @State private var showAllowButton = false
+    @State private var denyButtonPressed = false
+    @State private var allowButtonPressed = false
 }
 
 // MARK: - IconButton
@@ -480,6 +494,8 @@ struct IconButton: View {
                     RoundedRectangle(cornerRadius: 6)
                         .fill(self.isHovered ? Color.white.opacity(0.1) : Color.clear),
                 )
+                .scaleEffect(self.isHovered ? 1.1 : 1.0)
+                .animation(.easeOut(duration: 0.15), value: self.isHovered)
         }
         .buttonStyle(.plain)
         .onHover { self.isHovered = $0 }
@@ -496,6 +512,8 @@ struct CompactTerminalButton: View {
     let isEnabled: Bool
     let onTap: () -> Void
 
+    @State private var isHovered = false
+
     var body: some View {
         Button {
             if self.isEnabled {
@@ -505,7 +523,7 @@ struct CompactTerminalButton: View {
             HStack(spacing: 2) {
                 Image(systemName: "terminal")
                     .font(.system(size: 8, weight: .medium))
-                Text("Go to Terminal")
+                Text("go_to_terminal".localized)
                     .font(.system(size: 10, weight: .medium))
             }
             .foregroundColor(self.isEnabled ? .white.opacity(0.9) : .white.opacity(0.3))
@@ -513,8 +531,11 @@ struct CompactTerminalButton: View {
             .padding(.vertical, 2)
             .background(self.isEnabled ? Color.white.opacity(0.15) : Color.white.opacity(0.05))
             .clipShape(Capsule())
+            .scaleEffect(self.isHovered ? 1.05 : 1.0)
+            .animation(.easeOut(duration: 0.15), value: self.isHovered)
         }
         .buttonStyle(.plain)
+        .onHover { self.isHovered = $0 }
     }
 }
 
@@ -523,6 +544,8 @@ struct CompactTerminalButton: View {
 struct TerminalButton: View {
     let isEnabled: Bool
     let onTap: () -> Void
+
+    @State private var isHovered = false
 
     var body: some View {
         Button {
@@ -533,7 +556,7 @@ struct TerminalButton: View {
             HStack(spacing: 3) {
                 Image(systemName: "terminal")
                     .font(.system(size: 9, weight: .medium))
-                Text("Terminal")
+                Text("terminal".localized)
                     .font(.system(size: 11, weight: .medium))
             }
             .foregroundColor(self.isEnabled ? .black : .white.opacity(0.4))
@@ -541,8 +564,11 @@ struct TerminalButton: View {
             .padding(.vertical, 5)
             .background(self.isEnabled ? Color.white.opacity(0.95) : Color.white.opacity(0.1))
             .clipShape(Capsule())
+            .scaleEffect(self.isHovered ? 1.05 : 1.0)
+            .animation(.easeOut(duration: 0.15), value: self.isHovered)
         }
         .buttonStyle(.plain)
+        .onHover { self.isHovered = $0 }
     }
 }
 

@@ -130,7 +130,7 @@ struct EditResultContent: View {
             }
 
             if self.result.userModified {
-                Text("(User modified)")
+                Text("user_modified".localized)
                     .font(.system(size: 10))
                     .foregroundColor(.orange.opacity(0.7))
             }
@@ -195,7 +195,7 @@ struct BashResultContent: View {
                 HStack(spacing: 4) {
                     Image(systemName: "clock.arrow.circlepath")
                         .font(.system(size: 10))
-                    Text("Background task: \(bgID)")
+                    Text(String(format: NSLocalizedString("background_task", value: "Background task: %@", comment: ""), bgID))
                         .font(.system(size: 10, design: .monospaced))
                 }
                 .foregroundColor(.blue.opacity(0.7))
@@ -216,7 +216,7 @@ struct BashResultContent: View {
             // Stderr (shown in red)
             if !self.result.stderr.isEmpty {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("stderr:")
+                    Text("stderr".localized)
                         .font(.system(size: 10, weight: .medium))
                         .foregroundColor(.red.opacity(0.7))
                     Text(self.result.stderr)
@@ -228,7 +228,7 @@ struct BashResultContent: View {
 
             // Empty state
             if !self.result.hasOutput && self.result.backgroundTaskID == nil && self.result.returnCodeInterpretation == nil {
-                Text("(No content)")
+                Text("no_content".localized)
                     .font(.system(size: 11, design: .monospaced))
                     .foregroundColor(.white.opacity(0.3))
             }
@@ -247,7 +247,7 @@ struct GrepResultContent: View {
             case .filesWithMatches:
                 // Show file list
                 if self.result.filenames.isEmpty {
-                    Text("No matches found")
+                    Text("no_matches_found".localized)
                         .font(.system(size: 11, design: .monospaced))
                         .foregroundColor(.white.opacity(0.3))
                 } else {
@@ -259,13 +259,13 @@ struct GrepResultContent: View {
                 if let content = result.content, !content.isEmpty {
                     CodePreview(content: content, maxLines: 15)
                 } else {
-                    Text("No matches found")
+                    Text("no_matches_found".localized)
                         .font(.system(size: 11, design: .monospaced))
                         .foregroundColor(.white.opacity(0.3))
                 }
 
             case .count:
-                Text("\(self.result.numFiles) files with matches")
+                Text(String(format: NSLocalizedString("files_with_matches", value: "%d files with matches", comment: ""), self.result.numFiles))
                     .font(.system(size: 11, design: .monospaced))
                     .foregroundColor(.white.opacity(0.5))
             }
@@ -281,14 +281,14 @@ struct GlobResultContent: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             if self.result.filenames.isEmpty {
-                Text("No files found")
+                Text("no_files_found".localized)
                     .font(.system(size: 11, design: .monospaced))
                     .foregroundColor(.white.opacity(0.3))
             } else {
                 FileListView(files: self.result.filenames, limit: 10)
 
                 if self.result.truncated {
-                    Text("... and more (truncated)")
+                    Text("more_truncated".localized)
                         .font(.system(size: 10))
                         .foregroundColor(.white.opacity(0.3))
                 }
@@ -359,13 +359,13 @@ struct TaskResultContent: View {
                     .foregroundColor(self.statusColor)
 
                 if let duration = result.totalDurationMs {
-                    Text("\(self.formatDuration(duration))")
+                    Text(String(format: NSLocalizedString("duration_format", value: "%@", comment: ""), self.formatDuration(duration)))
                         .font(.system(size: 10, design: .monospaced))
                         .foregroundColor(.white.opacity(0.4))
                 }
 
                 if let tools = result.totalToolUseCount {
-                    Text("\(tools) tools")
+                    Text(String(format: NSLocalizedString("tools_used", value: "%@ tools", comment: ""), tools))
                         .font(.system(size: 10, design: .monospaced))
                         .foregroundColor(.white.opacity(0.4))
                 }
@@ -452,7 +452,7 @@ struct WebSearchResultContent: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             if self.result.results.isEmpty {
-                Text("No results found")
+                Text("no_results_found".localized)
                     .font(.system(size: 11, design: .monospaced))
                     .foregroundColor(.white.opacity(0.3))
             } else {
@@ -473,7 +473,7 @@ struct WebSearchResultContent: View {
                 }
 
                 if self.result.results.count > 5 {
-                    Text("... and \(self.result.results.count - 5) more results")
+                    Text(String(format: NSLocalizedString("more_results", value: "... and %d more results", comment: ""), self.result.results.count - 5))
                         .font(.system(size: 10))
                         .foregroundColor(.white.opacity(0.3))
                 }
@@ -521,12 +521,12 @@ struct BashOutputResultContent: View {
         VStack(alignment: .leading, spacing: 4) {
             // Status
             HStack(spacing: 6) {
-                Text("Status: \(self.result.status)")
+                Text(String(format: NSLocalizedString("status", value: "Status: %@", comment: ""), self.result.status))
                     .font(.system(size: 10, design: .monospaced))
                     .foregroundColor(.white.opacity(0.5))
 
                 if let exitCode = result.exitCode {
-                    Text("Exit: \(exitCode)")
+                    Text(String(format: NSLocalizedString("exit_code", value: "Exit: %@", comment: ""), "\(exitCode)"))
                         .font(.system(size: 10, design: .monospaced))
                         .foregroundColor(exitCode == 0 ? .green.opacity(0.6) : .red.opacity(0.6))
                 }
@@ -603,7 +603,7 @@ struct MCPResultContent: View {
             HStack(spacing: 4) {
                 Image(systemName: "puzzlepiece")
                     .font(.system(size: 10))
-                Text("\(MCPToolFormatter.toTitleCase(self.result.serverName)) - \(MCPToolFormatter.toTitleCase(self.result.toolName))")
+                Text(String(format: NSLocalizedString("mcp_tool_header", value: "%@ - %@", comment: ""), MCPToolFormatter.toTitleCase(self.result.serverName), MCPToolFormatter.toTitleCase(self.result.toolName)))
                     .font(.system(size: 10, design: .monospaced))
             }
             .foregroundColor(.purple.opacity(0.7))
@@ -633,7 +633,7 @@ struct GenericResultContent: View {
         if let content = result.rawContent, !content.isEmpty {
             GenericTextContent(text: content)
         } else {
-            Text("Completed")
+            Text("completed".localized)
                 .font(.system(size: 11, design: .monospaced))
                 .foregroundColor(.white.opacity(0.3))
         }
@@ -706,7 +706,7 @@ struct FileCodeView: View {
 
             // Bottom overflow indicator
             if self.hasMoreAfter {
-                Text("... (\(self.lines.count - self.maxLines) more lines)")
+                Text(String(format: NSLocalizedString("more_lines", value: "... (%d more lines)", comment: ""), self.lines.count - self.maxLines))
                     .font(.system(size: 10, design: .monospaced))
                     .foregroundColor(.white.opacity(0.3))
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -784,7 +784,7 @@ struct CodePreview: View {
             }
 
             if hasMore {
-                Text("... (\(lines.count - self.maxLines) more lines)")
+                Text(String(format: NSLocalizedString("more_lines", value: "... (%d more lines)", comment: ""), lines.count - self.maxLines))
                     .font(.system(size: 10, design: .monospaced))
                     .foregroundColor(.white.opacity(0.3))
                     .padding(.top, 2)
@@ -814,7 +814,7 @@ struct FileListView: View {
             }
 
             if self.files.count > self.limit {
-                Text("... and \(self.files.count - self.limit) more files")
+                Text(String(format: NSLocalizedString("more_files", value: "... and %d more files", comment: ""), self.files.count - self.limit))
                     .font(.system(size: 10))
                     .foregroundColor(.white.opacity(0.3))
             }
@@ -842,7 +842,7 @@ struct DiffView: View {
                     }
 
                     if patch.lines.count > 10 {
-                        Text("... (\(patch.lines.count - 10) more lines)")
+                        Text(String(format: NSLocalizedString("more_lines", value: "... (%d more lines)", comment: ""), patch.lines.count - 10))
                             .font(.system(size: 10, design: .monospaced))
                             .foregroundColor(.white.opacity(0.3))
                     }
@@ -850,7 +850,7 @@ struct DiffView: View {
             }
 
             if self.patches.count > 3 {
-                Text("... and \(self.patches.count - 3) more hunks")
+                Text(String(format: NSLocalizedString("more_hunks", value: "... and %d more hunks", comment: ""), self.patches.count - 3))
                     .font(.system(size: 10))
                     .foregroundColor(.white.opacity(0.3))
             }

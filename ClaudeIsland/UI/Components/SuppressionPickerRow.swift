@@ -29,7 +29,7 @@ struct SuppressionPickerRow: View {
                         .foregroundColor(self.textColor)
                         .frame(width: 16)
 
-                    Text("Sound Suppression")
+                    Text("sound_suppression".localized)
                         .font(.system(size: 13, weight: .medium))
                         .foregroundColor(self.textColor)
 

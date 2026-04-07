@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TokenRingsModule: NotchModule {
     nonisolated let id = "tokenRings"
-    let displayName = "Token Rings"
+    let displayName = "token_rings".localized
     let defaultSide: ModuleSide = .right
     let defaultOrder = 2
 

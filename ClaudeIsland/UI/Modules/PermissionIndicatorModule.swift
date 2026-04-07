@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PermissionIndicatorModule: NotchModule {
     nonisolated let id = "permissionIndicator"
-    let displayName = "Permission"
+    let displayName = "permission".localized
     let defaultSide: ModuleSide = .left
     let defaultOrder = 1
 

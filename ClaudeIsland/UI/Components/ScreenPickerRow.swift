@@ -29,7 +29,7 @@ struct ScreenPickerRow: View {
                         .foregroundColor(self.textColor)
                         .frame(width: 16)
 
-                    Text("Screen")
+                    Text("screen".localized)
                         .font(.system(size: 13, weight: .medium))
                         .foregroundColor(self.textColor)
 

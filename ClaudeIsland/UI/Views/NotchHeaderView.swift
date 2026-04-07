@@ -282,7 +282,7 @@ struct SessionStateDots: View {
             }
 
             if overflow > 0 {
-                Text("+\(overflow)")
+                Text(String(format: NSLocalizedString("overflow_indicator", value: "+%@", comment: ""), "\(overflow)"))
                     .font(.system(size: 9, weight: .medium))
                     .foregroundColor(.white.opacity(0.4))
             }

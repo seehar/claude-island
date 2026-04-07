@@ -1,0 +1,130 @@
+/* General */
+"accessibility" = "Accessibility";
+"allow" = "Allow";
+"deny" = "Deny";
+"retry" = "Retry";
+"quit" = "Quit";
+"up_to_date" = "Up to date";
+"loading" = "Loading...";
+"terminal" = "Terminal";
+"on" = "On";
+"off" = "Off";
+"enable" = "Enable";
+"mode" = "Mode";
+"display" = "Display";
+"none" = "None";
+"layout" = "Layout";
+"reset" = "Reset";
+"completed" = "Completed";
+"interrupted" = "Interrupted";
+"installed" = "Installed";
+"hex" = "Hex:";
+
+/* Token Tracking */
+"token_tracking" = "Token Tracking";
+"use_cli_oauth" = "Use CLI OAuth";
+"session_key" = "Session Key";
+"paste_session_key" = "Paste session key";
+"resets_at" = "Resets %@";
+"session_reset_time" = "Session Reset Time";
+"show_reset_time" = "Show reset time";
+"token_ring_low" = "Token Ring - Low Usage";
+"token_ring_medium" = "Token Ring - Medium Usage";
+"token_ring_high" = "Token Ring - High Usage";
+"token_ring_minimized" = "Token Ring - Minimized Size";
+
+/* Updates */
+"check_for_updates" = "Check for Updates";
+"download_update" = "Download Update";
+"downloading" = "Downloading...";
+"install_relaunch" = "Install & Relaunch";
+"installing" = "Installing...";
+"update_failed" = "Update failed";
+"checking" = "Checking...";
+"extracting" = "Extracting...";
+"whats_new" = "What's New";
+
+/* Sessions */
+"no_sessions" = "No sessions";
+"run_claude_in_terminal" = "Run claude in terminal";
+"needs_your_input" = "Needs your input";
+"you" = "You:";
+"go_to_terminal" = "Go to Terminal";
+"loading_messages" = "Loading messages...";
+"no_messages_yet" = "No messages yet";
+"claude_code_needs_input" = "Claude Code needs your input";
+"session_continued" = "This session is being continued from a previous conversation";
+
+/* Tool Results */
+"user_modified" = "(User modified)";
+"background_task" = "Background task: %@";
+"stderr" = "stderr:";
+"no_content" = "(No content)";
+"no_matches_found" = "No matches found";
+"no_files_found" = "No files found";
+"files_with_matches" = "%d files with matches";
+"more_truncated" = "... and more (truncated)";
+"more_lines" = "... (%d more lines)";
+"more_files" = "... and %d more files";
+"more_hunks" = "... and %d more hunks";
+"no_results_found" = "No results found";
+"more_results" = "... and %d more results";
+"status" = "Status: %@";
+"exit_code" = "Exit: %@";
+"tools_used" = "%@ tools";
+"duration_format" = "%@";
+
+/* Modules */
+"session_dots" = "Session Dots";
+"permission" = "Permission";
+"checkmark" = "Checkmark";
+"spinner" = "Spinner";
+"token_rings" = "Token Rings";
+"sound_suppression" = "Sound Suppression";
+"notification_sound" = "Notification Sound";
+"screen" = "Screen";
+"clawd" = "Clawd";
+"always_visible" = "Always Visible";
+"show_when_minimized" = "Show when minimized";
+"notch_auto_expand" = "Notch Auto-Expand";
+"notch_layout" = "Notch Layout";
+
+/* Version/Progress */
+"version_format" = "v%@";
+"progress_format" = "%d%%";
+
+/* Notch */
+"overflow_indicator" = "+%@";
+
+/* Tool use */
+"more_tool_uses" = "+%d more tool uses";
+"subagent_tools" = "%@ (%d tools)";
+"subagent_used_tools" = "Subagent used %d tools:";
+"tool_count" = "×%d";
+"waiting" = "Waiting:";
+
+/* MCP Tool */
+"mcp_tool_header" = "%@ - %@";
+
+/* Settings */
+"accessibility_permission_required" = "Accessibility Permission Required";
+"accessibility_instructions" = "Claude Island needs Accessibility access to approve tool permissions.\n\n1. Open System Settings → Privacy & Security → Accessibility\n2. Click the lock to make changes\n3. Add Claude Island to the list and enable it";
+"accessibility_permission_alert" = "Claude Island needs Accessibility permission to:\n\n• Monitor mouse position to show/hide the notch\n• Pass clicks through to apps behind the notch\n\nTo grant permission:\n1. Click \"Open Settings\" below\n2. Click the \"+\" button at the bottom of the list\n3. Navigate to and select the Claude Island app bundle\n4. Enable the checkbox next to Claude Island\n\nImportant: If Claude Island is already in the list but not working, remove it first using the \"-\" button, then add it again using \"+\".";
+"open_settings" = "Open Settings";
+"later" = "Later";
+
+/* Python Runtime */
+"python_runtime_required" = "Python Runtime Required";
+"install_uv" = "Install uv";
+"install_python_314" = "Install Python 3.14";
+"dismiss" = "Dismiss";
+
+/* Token Tracking Settings */
+"token_tracking_off" = "Token tracking is off";
+"show_5_hour_usage" = "Show 5-hour session usage only";
+"show_both_usages" = "Show both session and weekly usage";
+"suppresses_audio_active" = "Suppresses audio when Claude Island or the terminal is active";
+"suppresses_audio_terminal_visible" = "Suppresses audio when the terminal is visible (\u226550%% unobscured)";
+
+/* Session name */
+"session_name" = "Session name";

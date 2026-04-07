@@ -310,7 +310,7 @@ struct ChatView: View {
             ProgressView()
                 .progressViewStyle(CircularProgressViewStyle(tint: .white.opacity(0.4)))
                 .scaleEffect(0.8)
-            Text("Loading messages...")
+            Text("loading_messages".localized)
                 .font(.system(size: 13, weight: .medium))
                 .foregroundColor(.white.opacity(0.4))
         }
@@ -324,7 +324,7 @@ struct ChatView: View {
             Image(systemName: "bubble.left.and.bubble.right")
                 .font(.system(size: 24))
                 .foregroundColor(.white.opacity(0.2))
-            Text("No messages yet")
+            Text("no_messages_yet".localized)
                 .font(.system(size: 13, weight: .medium))
                 .foregroundColor(.white.opacity(0.4))
         }
@@ -869,14 +869,14 @@ struct ToolCallView: View {
 
                 if self.tool.name == "Task" && !self.tool.subagentTools.isEmpty {
                     let taskDesc = self.tool.input["description"] ?? "Running agent..."
-                    Text("\(taskDesc) (\(self.tool.subagentTools.count) tools)")
+                    Text(String(format: NSLocalizedString("subagent_tools", value: "%@ (%d tools)", comment: ""), taskDesc, self.tool.subagentTools.count))
                         .font(.system(size: 11))
                         .foregroundColor(self.textColor.opacity(0.7))
                         .lineLimit(1)
                         .truncationMode(.tail)
                 } else if self.tool.name == "AgentOutputTool", let desc = agentDescription {
                     let blocking = self.tool.input["block"] == "true"
-                    Text(blocking ? "Waiting: \(desc)" : desc)
+                    Text(blocking ? "\("waiting".localized) \(desc)" : desc)
                         .font(.system(size: 11))
                         .foregroundColor(self.textColor.opacity(0.7))
                         .lineLimit(1)
@@ -1061,7 +1061,7 @@ struct SubagentToolsList: View {
         VStack(alignment: .leading, spacing: 2) {
             // Show count of older hidden tools at top
             if self.hiddenCount > 0 {
-                Text("+\(self.hiddenCount) more tool uses")
+                Text(String(format: NSLocalizedString("more_tool_uses", value: "+%d more tool uses", comment: ""), self.hiddenCount))
                     .font(.system(size: 10))
                     .foregroundColor(.white.opacity(0.4))
             }
@@ -1161,7 +1161,7 @@ struct SubagentToolsSummary: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("Subagent used \(self.tools.count) tools:")
+            Text(String(format: "subagent_used_tools".localized, self.tools.count))
                 .font(.system(size: 10, weight: .medium))
                 .foregroundColor(.white.opacity(0.5))
 
@@ -1171,7 +1171,7 @@ struct SubagentToolsSummary: View {
                         Text(name)
                             .font(.system(size: 10, design: .monospaced))
                             .foregroundColor(.white.opacity(0.4))
-                        Text("×\(count)")
+                        Text("tool_count".localized.replacingOccurrences(of: "%d", with: "\(count)"))
                             .font(.system(size: 9, design: .monospaced))
                             .foregroundColor(.white.opacity(0.3))
                     }
@@ -1254,7 +1254,7 @@ struct ThinkingView: View {
 struct InterruptedMessageView: View {
     var body: some View {
         HStack {
-            Text("Interrupted")
+            Text("interrupted".localized)
                 .font(.system(size: 13))
                 .foregroundColor(.red)
             Spacer()
@@ -1278,7 +1278,7 @@ struct ChatInteractivePromptBar: View {
                 Text(MCPToolFormatter.formatToolName("AskUserQuestion"))
                     .font(.system(size: 12, weight: .medium, design: .monospaced))
                     .foregroundColor(TerminalColors.amber)
-                Text("Claude Code needs your input")
+                Text("claude_code_needs_input".localized)
                     .font(.system(size: 11))
                     .foregroundColor(.white.opacity(0.5))
                     .lineLimit(1)
@@ -1297,7 +1297,7 @@ struct ChatInteractivePromptBar: View {
                 HStack(spacing: 4) {
                     Image(systemName: "terminal")
                         .font(.system(size: 11, weight: .medium))
-                    Text("Terminal")
+                    Text("terminal".localized)
                         .font(.system(size: 13, weight: .medium))
                 }
                 .foregroundColor(self.isInTmux ? .black : .white.opacity(0.4))
@@ -1366,33 +1366,45 @@ struct ChatApprovalBar: View {
                 Button {
                     self.onDeny()
                 } label: {
-                    Text("Deny")
+                    Text("deny".localized)
                         .font(.system(size: 13, weight: .medium))
                         .foregroundColor(.white.opacity(0.7))
                         .padding(.horizontal, 16)
                         .padding(.vertical, 8)
                         .background(Color.white.opacity(0.1))
                         .clipShape(Capsule())
+                        .scaleEffect(self.denyButtonPressed ? 0.95 : 1.0)
                 }
                 .buttonStyle(.plain)
                 .opacity(self.showDenyButton ? 1 : 0)
                 .scaleEffect(self.showDenyButton ? 1 : 0.8)
+                .onLongPressGesture(minimumDuration: 0.1, pressing: { pressing in
+                    withAnimation(.easeInOut(duration: 0.1)) {
+                        self.denyButtonPressed = pressing
+                    }
+                }, perform: {})
 
                 // Allow button
                 Button {
                     self.onApprove()
                 } label: {
-                    Text("Allow")
+                    Text("allow".localized)
                         .font(.system(size: 13, weight: .medium))
                         .foregroundColor(.black)
                         .padding(.horizontal, 16)
                         .padding(.vertical, 8)
                         .background(Color.white.opacity(0.95))
                         .clipShape(Capsule())
+                        .scaleEffect(self.allowButtonPressed ? 0.95 : 1.0)
                 }
                 .buttonStyle(.plain)
                 .opacity(self.showAllowButton ? 1 : 0)
                 .scaleEffect(self.showAllowButton ? 1 : 0.8)
+                .onLongPressGesture(minimumDuration: 0.1, pressing: { pressing in
+                    withAnimation(.easeInOut(duration: 0.1)) {
+                        self.allowButtonPressed = pressing
+                    }
+                }, perform: {})
             }
         }
         .padding(.horizontal, 16)
@@ -1416,6 +1428,8 @@ struct ChatApprovalBar: View {
     @State private var showContent = false
     @State private var showAllowButton = false
     @State private var showDenyButton = false
+    @State private var denyButtonPressed = false
+    @State private var allowButtonPressed = false
 }
 
 // MARK: - NewMessagesIndicator

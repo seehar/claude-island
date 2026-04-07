@@ -30,7 +30,7 @@ struct SoundPickerRow: View {
                         .foregroundColor(self.textColor)
                         .frame(width: 16)
 
-                    Text("Notification Sound")
+                    Text("notification_sound".localized)
                         .font(.system(size: 13, weight: .medium))
                         .foregroundColor(self.textColor)
 

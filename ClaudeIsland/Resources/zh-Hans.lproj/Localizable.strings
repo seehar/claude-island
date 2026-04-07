@@ -1,0 +1,130 @@
+/* General */
+"accessibility" = "无障碍访问";
+"allow" = "允许";
+"deny" = "拒绝";
+"retry" = "重试";
+"quit" = "退出";
+"up_to_date" = "已更新";
+"loading" = "加载中...";
+"terminal" = "终端";
+"on" = "开";
+"off" = "关";
+"enable" = "启用";
+"mode" = "模式";
+"display" = "显示器";
+"none" = "无";
+"layout" = "布局";
+"reset" = "重置";
+"completed" = "已完成";
+"interrupted" = "已中断";
+"installed" = "已安装";
+"hex" = "十六进制：";
+
+/* Token Tracking */
+"token_tracking" = "Token 追踪";
+"use_cli_oauth" = "使用 CLI OAuth";
+"session_key" = "会话密钥";
+"paste_session_key" = "粘贴会话密钥";
+"resets_at" = "重置于 %@";
+"session_reset_time" = "会话重置时间";
+"show_reset_time" = "显示重置时间";
+"token_ring_low" = "Token 环 - 低用量";
+"token_ring_medium" = "Token 环 - 中等用量";
+"token_ring_high" = "Token 环 - 高用量";
+"token_ring_minimized" = "Token 环 - 已最小化";
+
+/* Updates */
+"check_for_updates" = "检查更新";
+"download_update" = "下载更新";
+"downloading" = "下载中...";
+"install_relaunch" = "安装并重启";
+"installing" = "安装中...";
+"update_failed" = "更新失败";
+"checking" = "检查中...";
+"extracting" = "解压中...";
+"whats_new" = "新功能";
+
+/* Sessions */
+"no_sessions" = "无会话";
+"run_claude_in_terminal" = "在终端运行 claude";
+"needs_your_input" = "需要您的输入";
+"you" = "您：";
+"go_to_terminal" = "前往终端";
+"loading_messages" = "正在加载消息...";
+"no_messages_yet" = "暂无消息";
+"claude_code_needs_input" = "Claude Code 需要您的输入";
+"session_continued" = "此会话延续自之前的对话";
+
+/* Tool Results */
+"user_modified" = "（用户已修改）";
+"background_task" = "后台任务：%@";
+"stderr" = "标准错误：";
+"no_content" = "（无内容）";
+"no_matches_found" = "未找到匹配";
+"no_files_found" = "未找到文件";
+"files_with_matches" = "%d 个文件有匹配";
+"more_truncated" = "... 还有更多（已截断）";
+"more_lines" = "...（还有 %d 行）";
+"more_files" = "... 还有 %d 个文件";
+"more_hunks" = "... 还有 %d 个补丁";
+"no_results_found" = "未找到结果";
+"more_results" = "... 还有 %d 个结果";
+"status" = "状态：%@";
+"exit_code" = "退出：%@";
+"tools_used" = "%@ 个工具";
+"duration_format" = "%@";
+
+/* Modules */
+"session_dots" = "会话点数";
+"permission" = "权限";
+"checkmark" = "勾选";
+"spinner" = "旋转动画";
+"token_rings" = "Token 环";
+"sound_suppression" = "声音抑制";
+"notification_sound" = "通知声音";
+"screen" = "屏幕";
+"clawd" = "Clawd";
+"always_visible" = "始终显示";
+"show_when_minimized" = "最小化时显示";
+"notch_auto_expand" = "Notch 自动展开";
+"notch_layout" = "Notch 布局";
+
+/* Version/Progress */
+"version_format" = "v%@";
+"progress_format" = "%d%%";
+
+/* Notch */
+"overflow_indicator" = "+%@";
+
+/* Tool use */
+"more_tool_uses" = "+%d 个更多工具使用";
+"subagent_tools" = "%@（%d 个工具）";
+"subagent_used_tools" = "子代理使用了 %d 个工具：";
+"tool_count" = "×%d";
+"waiting" = "等待：";
+
+/* MCP Tool */
+"mcp_tool_header" = "%@ - %@";
+
+/* Settings */
+"accessibility_permission_required" = "需要无障碍访问权限";
+"accessibility_instructions" = "Claude Island 需要无障碍访问权限来批准工具请求。\n\n1. 打开系统设置 → 隐私与安全性 → 无障碍\n2. 点击锁按钮进行更改\n3. 将 Claude Island 添加到列表中并启用";
+"accessibility_permission_alert" = "Claude Island 需要无障碍访问权限：\n\n• 监控鼠标位置以显示/隐藏 notch\n• 将点击传递给 notch 后面的应用\n\n授予权限：\n1. 点击下方的\"打开设置\"\n2. 点击列表底部的\"+\"按钮\n3. 导航并选择 Claude Island 应用包\n4. 启用 Claude Island 旁边的复选框\n\n重要提示：如果 Claude Island 已在列表中但不起作用，请先使用\"-\"按钮将其删除，然后使用\"+\"重新添加。";
+"open_settings" = "打开设置";
+"later" = "稍后";
+
+/* Python Runtime */
+"python_runtime_required" = "需要 Python 运行时";
+"install_uv" = "安装 uv";
+"install_python_314" = "安装 Python 3.14";
+"dismiss" = "关闭";
+
+/* Token Tracking Settings */
+"token_tracking_off" = "Token 追踪已关闭";
+"show_5_hour_usage" = "仅显示 5 小时会话用量";
+"show_both_usages" = "显示会话和每周用量";
+"suppresses_audio_active" = "当 Claude Island 或终端处于活动状态时抑制声音";
+"suppresses_audio_terminal_visible" = "当终端可见时（可见区域≥50%%）抑制声音";
+
+/* Session name */
+"session_name" = "会话名称";

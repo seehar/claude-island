@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ActivitySpinnerModule: NotchModule {
     nonisolated let id = "activitySpinner"
-    let displayName = "Spinner"
+    let displayName = "spinner".localized
     let defaultSide: ModuleSide = .right
     let defaultOrder = 0
 
