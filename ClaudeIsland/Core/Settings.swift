@@ -19,9 +19,9 @@ enum TokenTrackingMode: String, CaseIterable {
     var description: String {
         switch self {
         case .disabled:
-            "Token tracking is off"
+            "token_tracking_disabled".localized
         case .api:
-            "Fetches real quota from Claude API"
+            "token_tracking_api".localized
         }
     }
 }
@@ -46,11 +46,11 @@ enum RingDisplay: String, CaseIterable {
     var description: String {
         switch self {
         case .session:
-            "Show 5-hour session usage only"
+            "show_5_hour_session".localized
         case .weekly:
-            "Show 7-day weekly usage only"
+            "show_7_day_weekly".localized
         case .both:
-            "Show both session and weekly usage"
+            "show_both_session_weekly".localized
         }
     }
 }
@@ -69,11 +69,11 @@ enum SoundSuppression: String, CaseIterable {
     var description: String {
         switch self {
         case .never:
-            "Sound always plays"
+            "sound_always_plays".localized
         case .whenFocused:
-            "Suppresses audio when Claude Island or the terminal is active"
+            "suppresses_audio_active".localized
         case .whenVisible:
-            "Suppresses audio when the terminal is visible (≥50% unobscured)"
+            "suppresses_audio_terminal_visible".localized
         }
     }
 }
@@ -255,7 +255,7 @@ enum AppSettings {
         static let clawdAlwaysVisible = "clawdAlwaysVisible"
         static let notchAutoExpand = "notchAutoExpand"
         static let tokenTrackingMode = "tokenTrackingMode"
-        static let tokenUseCLIOAuth = "tokenUseCliOAuth"
+        static let tokenUseCLIOAuth = "tokenUseCLIOAuth"
         static let tokenShowRingsMinimized = "tokenShowRingsMinimized"
         static let tokenMinimizedRingDisplay = "tokenMinimizedRingDisplay"
         static let tokenShowResetTime = "tokenShowResetTime"

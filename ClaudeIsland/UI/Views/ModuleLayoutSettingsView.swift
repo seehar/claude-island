@@ -30,19 +30,19 @@ struct ModuleLayoutSettingsView: View {
 
                 HStack(alignment: .top, spacing: 12) {
                     ModuleColumnView(
-                        title: "Left",
+                        title: "left_column".localized,
                         modules: self.$leftModules,
                         registry: self.layoutEngine.registry,
                     ) { id, beforeID in self.handleDrop(id: id, targetSide: .left, beforeID: beforeID) }
                     ModuleColumnView(
-                        title: "Right",
+                        title: "right_column".localized,
                         modules: self.$rightModules,
                         registry: self.layoutEngine.registry,
                     ) { id, beforeID in self.handleDrop(id: id, targetSide: .right, beforeID: beforeID) }
                 }
 
                 ModuleColumnView(
-                    title: "Hidden",
+                    title: "hidden_column".localized,
                     modules: self.$hiddenModules,
                     registry: self.layoutEngine.registry,
                 ) { id, beforeID in self.handleDrop(id: id, targetSide: .hidden, beforeID: beforeID) }

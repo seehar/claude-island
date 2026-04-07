@@ -137,5 +137,27 @@
 "suppresses_audio_active" = "当 Claude Island 或终端处于活动状态时抑制声音";
 "suppresses_audio_terminal_visible" = "当终端可见时（可见区域≥50%%）抑制声音";
 
-/* Session name */
 "session_name" = "会话名称";
+
+/* Chat View */
+"message_placeholder" = "输入消息给 Claude...";
+"open_claude_in_tmux" = "在 tmux 中打开 Claude Code 以启用消息";
+"paste_image_from_clipboard" = "从剪贴板粘贴图片";
+"remove_image" = "移除图片";
+
+/* Module Layout */
+"left_column" = "左侧";
+"right_column" = "右侧";
+"hidden_column" = "隐藏";
+
+/* Token Tracking Mode */
+"token_tracking_disabled" = "Token 追踪已关闭";
+"token_tracking_api" = "从 Claude API 获取实际配额";
+
+/* Ring Display */
+"show_5_hour_session" = "仅显示 5 小时会话用量";
+"show_7_day_weekly" = "仅显示 7 天每周用量";
+"show_both_session_weekly" = "显示会话和每周用量";
+
+/* Sound Suppression */
+"sound_always_plays" = "声音始终播放";

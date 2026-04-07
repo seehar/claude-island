@@ -429,9 +429,9 @@ struct ChatView: View {
                 }
                 .buttonStyle(.plain)
                 .disabled(!self.canSendMessages)
-                .help("Paste image from clipboard")
+                .help("paste_image_from_clipboard".localized)
 
-                TextField(self.canSendMessages ? "Message Claude..." : "Open Claude Code in tmux to enable messaging", text: self.$inputText)
+                TextField(self.canSendMessages ? "message_placeholder".localized : "open_claude_in_tmux".localized, text: self.$inputText)
                     .textFieldStyle(.plain)
                     .font(.system(size: 13))
                     .foregroundColor(self.canSendMessages ? .white : .white.opacity(0.4))
@@ -511,7 +511,7 @@ struct ChatView: View {
                     .foregroundColor(.white.opacity(0.6))
             }
             .buttonStyle(.plain)
-            .help("Remove image")
+            .help("remove_image".localized)
 
             Spacer()
         }
