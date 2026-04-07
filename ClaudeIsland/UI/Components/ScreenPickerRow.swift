@@ -115,6 +115,11 @@ struct ScreenPickerRow: View {
 
     private func setExpanded(_ value: Bool) {
         self.screenSelector.isPickerExpanded = value
+        if value {
+            // Refresh available screens when picker expands to ensure
+            // newly connected monitors are detected
+            self.screenSelector.refreshScreens()
+        }
     }
 
     private func screenSublabel(for screen: NSScreen) -> String? {
