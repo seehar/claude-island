@@ -42,7 +42,7 @@ struct NotchMenuView: View {
                         // Back button
                         MenuRow(
                             icon: "chevron.left",
-                            label: "Back",
+                            label: "back".localized,
                         ) {
                             self.viewModel.toggleMenu()
                         }
@@ -86,7 +86,7 @@ struct NotchMenuView: View {
                         // System settings
                         MenuToggleRow(
                             icon: "power",
-                            label: "Launch at Login",
+                            label: "launch_at_login".localized,
                             isOn: self.launchAtLogin,
                         ) {
                             do {
@@ -104,7 +104,7 @@ struct NotchMenuView: View {
 
                         MenuToggleRow(
                             icon: "arrow.triangle.2.circlepath",
-                            label: "Hooks",
+                            label: "hooks".localized,
                             isOn: self.hooksInstalled,
                         ) {
                             // Cancel any in-flight installation tasks first (both local and AppDelegate's)
@@ -136,7 +136,7 @@ struct NotchMenuView: View {
 
                         MenuToggleRow(
                             icon: "text.line.first.and.arrowforward",
-                            label: "Verbose Mode",
+                            label: "verbose_mode".localized,
                             isOn: self.verboseMode,
                         ) {
                             self.verboseMode.toggle()
@@ -151,14 +151,14 @@ struct NotchMenuView: View {
 
                         MenuRow(
                             icon: "list.bullet.rectangle",
-                            label: "What's New",
+                            label: "whats_new".localized,
                         ) {
                             self.showWhatsNew = true
                         }
 
                         MenuRow(
                             icon: "star",
-                            label: "Star on GitHub",
+                            label: "star_on_github".localized,
                         ) {
                             if let url = URL(string: "https://github.com/engels74/claude-island") {
                                 NSWorkspace.shared.open(url)
@@ -783,7 +783,7 @@ struct TokenTrackingRow: View {
                         .font(.system(size: 11, weight: .medium))
                         .foregroundColor(.white.opacity(0.5))
 
-                    SecureField("Paste session key", text: self.$sessionKey)
+                    SecureField("paste_session_key".localized, text: self.$sessionKey)
                         .textFieldStyle(.roundedBorder)
                         .font(.system(size: 11))
                         .onSubmit {

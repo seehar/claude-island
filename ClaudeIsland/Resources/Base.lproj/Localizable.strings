@@ -19,6 +19,17 @@
 "interrupted" = "Interrupted";
 "installed" = "Installed";
 "hex" = "Hex:";
+"back" = "Back";
+"launch_at_login" = "Launch at Login";
+"hooks" = "Hooks";
+"verbose_mode" = "Verbose Mode";
+"whats_new" = "What's New";
+"star_on_github" = "Star on GitHub";
+"automatic" = "Automatic";
+"built_in_or_main" = "Built-in or Main";
+"auto" = "Auto";
+"built_in" = "Built-in";
+"main_display" = "Main";
 
 /* Token Tracking */
 "token_tracking" = "Token Tracking";

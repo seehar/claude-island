@@ -59,8 +59,8 @@ struct ScreenPickerRow: View {
                 VStack(spacing: 2) {
                     // Automatic option
                     ScreenOptionRow(
-                        label: "Automatic",
-                        sublabel: "Built-in or Main",
+                        label: "automatic".localized,
+                        sublabel: "built_in_or_main".localized,
                         isSelected: self.screenSelector.selectionMode == .automatic,
                     ) {
                         self.screenSelector.selectAutomatic()
@@ -100,12 +100,12 @@ struct ScreenPickerRow: View {
     private var currentSelectionLabel: String {
         switch self.screenSelector.selectionMode {
         case .automatic:
-            return "Auto"
+            return "auto".localized
         case .specificScreen:
             if let screen = screenSelector.selectedScreen {
                 return screen.localizedName
             }
-            return "Auto"
+            return "auto".localized
         }
     }
 
@@ -120,10 +120,10 @@ struct ScreenPickerRow: View {
     private func screenSublabel(for screen: NSScreen) -> String? {
         var parts: [String] = []
         if screen.isBuiltinDisplay {
-            parts.append("Built-in")
+            parts.append("built_in".localized)
         }
         if screen == NSScreen.main {
-            parts.append("Main")
+            parts.append("main_display".localized)
         }
         return parts.isEmpty ? nil : parts.joined(separator: ", ")
     }

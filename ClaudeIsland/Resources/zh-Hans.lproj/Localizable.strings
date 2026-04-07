@@ -19,6 +19,17 @@
 "interrupted" = "已中断";
 "installed" = "已安装";
 "hex" = "十六进制：";
+"back" = "返回";
+"launch_at_login" = "登录时启动";
+"hooks" = "Hooks";
+"verbose_mode" = "详细模式";
+"whats_new" = "新功能";
+"star_on_github" = "在 GitHub 上 Star";
+"automatic" = "自动";
+"built_in_or_main" = "内置或主屏幕";
+"auto" = "自动";
+"built_in" = "内置";
+"main_display" = "主屏幕";
 
 /* Token Tracking */
 "token_tracking" = "Token 追踪";
